@@ -1,9 +1,74 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".ResultActivity">
+    xmlns:tools="http://schemas.android.com/tools">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <data>
+
+    </data>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".ResultActivity">
+        
+        <TextView
+            android:id="@+id/team1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="30sp"
+            android:text="Team 1"
+            />
+        <TextView
+            android:id="@+id/separator"
+            android:layout_toRightOf="@id/team1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="30sp"
+            android:text="-"/>
+        <TextView
+            android:id="@+id/team2"
+            android:layout_toRightOf="@id/separator"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="30sp"
+            android:text="Team 2"/>
+
+        <TextView
+            android:id="@+id/score1"
+            android:layout_below="@+id/team1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="30sp"
+            android:text="00"
+            />
+        <TextView
+            android:id="@+id/separator2"
+            android:layout_toRightOf="@id/score1"
+            android:layout_below="@id/team1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="30sp"
+            android:text="-"/>
+
+        <TextView
+            android:id="@+id/score2"
+            android:layout_toRightOf="@id/separator2"
+            android:layout_below="@+id/team1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="30sp"
+            android:text="00"
+            />
+        <TextView
+            android:id="@+id/result"
+            android:layout_below="@id/score1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textAlignment="center"
+            android:text="placeholder"
+            />
+        
+
+    </RelativeLayout>
+</layout>

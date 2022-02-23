@@ -1,14 +1,18 @@
 package com.rtorres.basketballscore
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
 import com.rtorres.basketballscore.databinding.ActivityScoreBinding
+import kotlinx.android.synthetic.main.activity_result.*
 
 class ScoreActivity : AppCompatActivity() {
 
     private var scoreTeam1 = 0
     private var scoreTeam2 = 0
+    private var team1 = ""
+    private var team2 = ""
 
     companion object {
         const val FIRST_TEAM = "team1"
@@ -21,10 +25,10 @@ class ScoreActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         val bundle = intent.extras!!
-        val firstTeam = bundle.getString(FIRST_TEAM)!!
-        val secondTeam = bundle.getString(SECOND_TEAM)!!
-        binding.firstTeamName.text = firstTeam
-        binding.secondTeamName.text = secondTeam
+        this.team1 = bundle.getString(FIRST_TEAM)!!
+        this.team2 = bundle.getString(SECOND_TEAM)!!
+        binding.firstTeamName.text = this.team1
+        binding.secondTeamName.text = this.team2
 
         binding.plus2Button1.setOnClickListener {
             addToScore1(2)
@@ -62,7 +66,12 @@ class ScoreActivity : AppCompatActivity() {
         }
 
         binding.finishButton.setOnClickListener {
-            Toast.makeText(this, "Finished", Toast.LENGTH_SHORT).show();
+            openResultActivity(
+                this.team1,
+                this.team2,
+                this.scoreTeam1,
+                this.scoreTeam2
+            )
         }
     }
 
@@ -84,5 +93,14 @@ class ScoreActivity : AppCompatActivity() {
         if (scoreTeam2 > 0) {
             this.scoreTeam2 -= number
         }
+    }
+
+    private fun openResultActivity(team1: String, team2: String, score1: Int, score2: Int) {
+        val intent = Intent(this, ResultActivity::class.java)
+        intent.putExtra(ResultActivity.SCORE1, score1)
+        intent.putExtra(ResultActivity.SCORE2, score2)
+        intent.putExtra(ResultActivity.TEAM1, team1)
+        intent.putExtra(ResultActivity.TEAM2, team2)
+        startActivity(intent)
     }
 }
