@@ -1,39 +1,48 @@
 package com.rtorres.basketballscore
 
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 
 class ScoreViewModel : ViewModel() {
-    var scoreTeam1 = 0
-    var scoreTeam2 = 0
-    var team1 = ""
-    var team2 = ""
+    var scoreTeam1: MutableLiveData<Int> = MutableLiveData()
+    var scoreTeam2: MutableLiveData<Int> = MutableLiveData()
+    var team1: MutableLiveData<String> = MutableLiveData()
+    var team2: MutableLiveData<String> = MutableLiveData()
+
+
+    init {
+        scoreTeam1.value = 0
+        scoreTeam2.value = 0
+        team1.value = ""
+        team2.value = ""
+    }
 
     fun renameTeam1(teamName: String) {
-        this.team1 = teamName
+        team1.value = teamName
     }
 
     fun renameTeam2(teamName: String) {
-        this.team2 = teamName
+        team2.value = teamName
     }
 
 
     fun addToScore1(number: Int) {
-        this.scoreTeam1 += number
+        scoreTeam1.value = scoreTeam1.value?.plus(number)
     }
 
     fun substractToScre1(number: Int) {
-        if (scoreTeam1 > 0) {
-            this.scoreTeam1 -= number
+        if (scoreTeam1.value!! > 0) {
+            scoreTeam1.value = scoreTeam1.value?.minus(number)
         }
     }
 
     fun addToScore2(number: Int) {
-        this.scoreTeam2 += number
+        scoreTeam2.value = scoreTeam2.value?.plus(number)
     }
 
     fun substractToScre2(number: Int) {
-        if (scoreTeam2 > 0) {
-            this.scoreTeam2 -= number
+        if (scoreTeam2.value!! > 0) {
+            scoreTeam2.value = scoreTeam2.value?.minus(number)
         }
     }
 }

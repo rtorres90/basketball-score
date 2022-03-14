@@ -4,6 +4,7 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.rtorres.basketballscore.databinding.ActivityScoreBinding
@@ -25,57 +26,56 @@ class ScoreActivity : AppCompatActivity() {
 
         viewModel = ViewModelProvider(this).get(ScoreViewModel::class.java)
 
+        viewModel.scoreTeam1.observe(this, Observer { scoreTeamValue1 ->
+            binding.scoreTeam1.text = scoreTeamValue1.toString()
+        })
+
+        viewModel.scoreTeam2.observe(this, Observer { scoreTeamValue2 ->
+            binding.scoreTeam2.text = scoreTeamValue2.toString()
+        })
+
         val bundle = intent.extras!!
         viewModel.renameTeam1(bundle.getString(FIRST_TEAM)!!)
         viewModel.renameTeam2(bundle.getString(SECOND_TEAM)!!)
-        binding.firstTeamName.text = viewModel.team1
-        binding.secondTeamName.text = viewModel.team2
+        binding.firstTeamName.text = viewModel.team1.value
+        binding.secondTeamName.text = viewModel.team2.value
 
         binding.plus2Button1.setOnClickListener {
             viewModel.addToScore1(2)
-            binding.scoreTeam1.text = viewModel.scoreTeam1.toString()
         }
 
         binding.plus3Button1.setOnClickListener {
             viewModel.addToScore1(3)
-            binding.scoreTeam1.text = viewModel.scoreTeam1.toString()
         }
         binding.minusButton1.setOnClickListener {
             viewModel.substractToScre1(1)
-            binding.scoreTeam1.text = viewModel.scoreTeam1.toString()
         }
 
         binding.plus2Button2.setOnClickListener {
             viewModel.addToScore2(2)
-            binding.scoreTeam2.text = viewModel.scoreTeam2.toString()
         }
 
         binding.plus3Button2.setOnClickListener {
             viewModel.addToScore2(3)
-            binding.scoreTeam2.text = viewModel.scoreTeam2.toString()
         }
         binding.minusButton2.setOnClickListener {
             viewModel.substractToScre2(1)
-            binding.scoreTeam2.text = viewModel.scoreTeam2.toString()
         }
 
         binding.resetButton.setOnClickListener {
-            viewModel.substractToScre1(viewModel.scoreTeam1)
-            viewModel.substractToScre2(viewModel.scoreTeam2)
-            binding.scoreTeam1.text = viewModel.scoreTeam1.toString()
-            binding.scoreTeam2.text = viewModel.scoreTeam2.toString()
+            viewModel.substractToScre1(viewModel.scoreTeam1.value!!)
+            viewModel.substractToScre2(viewModel.scoreTeam2.value!!)
         }
 
         binding.finishButton.setOnClickListener {
             openResultActivity(
-                viewModel.team1,
-                viewModel.team2,
-                viewModel.scoreTeam1,
-                viewModel.scoreTeam2
+                viewModel.team1.value!!,
+                viewModel.team2.value!!,
+                viewModel.scoreTeam1.value!!,
+                viewModel.scoreTeam2.value!!
             )
         }
     }
-
 
 
     private fun openResultActivity(team1: String, team2: String, score1: Int, score2: Int) {
