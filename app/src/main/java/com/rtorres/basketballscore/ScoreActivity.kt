@@ -23,6 +23,8 @@ class ScoreActivity : AppCompatActivity() {
 
         viewModel = ViewModelProvider(this).get(ScoreViewModel::class.java)
 
+        binding.scoreViewModel = viewModel
+
         viewModel.scoreTeam1LiveData.observe(this, Observer { scoreTeamValue1 ->
             binding.scoreTeam1.text = scoreTeamValue1.toString()
         })
@@ -38,50 +40,18 @@ class ScoreActivity : AppCompatActivity() {
         binding.firstTeamName.text = viewModel.team1.value
         binding.secondTeamName.text = viewModel.team2.value
 
-        binding.plus2Button1.setOnClickListener {
-            viewModel.addToScore1(2)
-        }
-
-        binding.plus3Button1.setOnClickListener {
-            viewModel.addToScore1(3)
-        }
-        binding.minusButton1.setOnClickListener {
-            viewModel.substractToScre1(1)
-        }
-
-        binding.plus2Button2.setOnClickListener {
-            viewModel.addToScore2(2)
-        }
-
-        binding.plus3Button2.setOnClickListener {
-            viewModel.addToScore2(3)
-        }
-        binding.minusButton2.setOnClickListener {
-            viewModel.substractToScre2(1)
-        }
-
-        binding.resetButton.setOnClickListener {
-            viewModel.substractToScre1(viewModel.scoreTeam1LiveData.value!!)
-            viewModel.substractToScre2(viewModel.scoreTeam2LiveData.value!!)
-        }
-
         binding.finishButton.setOnClickListener {
-            openResultActivity(
-                viewModel.team1.value!!,
-                viewModel.team2.value!!,
-                viewModel.scoreTeam1LiveData.value!!,
-                viewModel.scoreTeam2LiveData.value!!
-            )
+            openResultActivity()
         }
     }
 
 
-    private fun openResultActivity(team1: String, team2: String, score1: Int, score2: Int) {
+    private fun openResultActivity() {
         val intent = Intent(this, ResultActivity::class.java)
-        intent.putExtra(ResultActivity.SCORE1, score1)
-        intent.putExtra(ResultActivity.SCORE2, score2)
-        intent.putExtra(ResultActivity.TEAM1, team1)
-        intent.putExtra(ResultActivity.TEAM2, team2)
+        intent.putExtra(ResultActivity.SCORE1, viewModel.scoreTeam1LiveData.value)
+        intent.putExtra(ResultActivity.SCORE2, viewModel.scoreTeam2LiveData.value)
+        intent.putExtra(ResultActivity.TEAM1, viewModel.team1.value)
+        intent.putExtra(ResultActivity.TEAM2, viewModel.team2.value)
         startActivity(intent)
     }
 }

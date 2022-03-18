@@ -5,105 +5,121 @@
 
     <data>
 
+        <variable
+            name="scoreViewModel"
+            type="com.rtorres.basketballscore.ScoreViewModel" />
+
     </data>
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:context=".ScoreActivity">
+
         <TextView
             android:id="@+id/first_team_name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textAlignment="center"
-            android:textSize="25dp"
             android:text="placeholder1"
-            />
+            android:textAlignment="center"
+            android:textSize="25dp" />
+
         <Button
             android:id="@+id/minus_button_1"
-            android:layout_below="@id/first_team_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="-1"/>
+            android:layout_below="@id/first_team_name"
+            android:onClick="@{() -> scoreViewModel.substractToScre1(1)}"
+            android:text="-1" />
+
         <TextView
             android:id="@+id/score_team_1"
-            android:layout_toRightOf="@+id/minus_button_1"
-            android:layout_below="@id/first_team_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="25dp"
-            android:text="00"/>
+            android:layout_below="@id/first_team_name"
+            android:layout_toRightOf="@+id/minus_button_1"
+            android:text="00"
+            android:textSize="25dp" />
 
         <Button
             android:id="@+id/plus_2_button_1"
-            android:layout_below="@id/first_team_name"
-            android:layout_toRightOf="@id/score_team_1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="+2"/>
+            android:layout_below="@id/first_team_name"
+            android:layout_toRightOf="@id/score_team_1"
+            android:onClick="@{() -> scoreViewModel.addToScore1(2)}"
+            android:text="+2" />
 
         <Button
             android:id="@+id/plus_3_button_1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_below="@id/plus_2_button_1"
             android:layout_toRightOf="@id/score_team_1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="+3"/>
+            android:onClick="@{() -> scoreViewModel.addToScore1(3)}"
+            android:text="+3" />
+
         <Button
             android:id="@+id/reset_button"
-            android:layout_below="@id/plus_3_button_1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_below="@id/plus_3_button_1"
+            android:onClick="@{() -> scoreViewModel.resetScore()}"
             android:text="Reset"
-            android:textSize="25dp"/>
+            android:textSize="25dp" />
 
         <Button
             android:id="@+id/finishButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_below="@id/plus_3_button_1"
             android:layout_toRightOf="@id/reset_button"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
             android:text="Finish"
-            android:textSize="25dp"/>
+            android:textSize="25dp" />
+
         <TextView
             android:id="@+id/second_team_name"
-            android:layout_below="@id/reset_button"
-            android:textAlignment="center"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textSize="25dp"
+            android:layout_below="@id/reset_button"
             android:text="placeholder2"
-            />
+            android:textAlignment="center"
+            android:textSize="25dp" />
+
         <Button
             android:id="@+id/minus_button_2"
-            android:layout_below="@id/second_team_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="-1"/>
+            android:layout_below="@id/second_team_name"
+            android:onClick="@{() -> scoreViewModel.substractToScre2(1)}"
+            android:text="-1" />
+
         <TextView
             android:id="@+id/score_team_2"
-            android:layout_toRightOf="@+id/minus_button_2"
-            android:layout_below="@id/second_team_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="25dp"
-            android:text="00"/>
+            android:layout_below="@id/second_team_name"
+            android:layout_toRightOf="@+id/minus_button_2"
+            android:text="00"
+            android:textSize="25dp" />
 
         <Button
             android:id="@+id/plus_2_button_2"
-            android:layout_below="@id/second_team_name"
-            android:layout_toRightOf="@id/score_team_2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="+2"/>
+            android:layout_below="@id/second_team_name"
+            android:layout_toRightOf="@id/score_team_2"
+            android:onClick="@{() -> scoreViewModel.addToScore2(2)}"
+            android:text="+2" />
 
         <Button
             android:id="@+id/plus_3_button_2"
-            android:layout_below="@id/plus_2_button_2"
-            android:layout_toRightOf="@id/score_team_2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="+3"/>
+            android:layout_below="@id/plus_2_button_2"
+            android:layout_toRightOf="@id/score_team_2"
+            android:onClick="@{() -> scoreViewModel.addToScore2(3)}"
+            android:text="+3" />
 
     </RelativeLayout>
 </layout>

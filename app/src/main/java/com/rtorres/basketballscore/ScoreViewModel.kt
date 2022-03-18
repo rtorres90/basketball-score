@@ -53,4 +53,9 @@ class ScoreViewModel : ViewModel() {
             _scoreTeam2LiveData.value = _scoreTeam2LiveData.value?.minus(number)
         }
     }
+
+    fun resetScore(){
+        _scoreTeam1LiveData.value = 0
+        _scoreTeam2LiveData.value = 0
+    }
 }
