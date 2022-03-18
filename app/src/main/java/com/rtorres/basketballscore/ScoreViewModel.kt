@@ -1,18 +1,26 @@
 package com.rtorres.basketballscore
 
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 
 class ScoreViewModel : ViewModel() {
-    var scoreTeam1: MutableLiveData<Int> = MutableLiveData()
-    var scoreTeam2: MutableLiveData<Int> = MutableLiveData()
+    private var _scoreTeam1LiveData: MutableLiveData<Int> = MutableLiveData()
+    private var _scoreTeam2LiveData: MutableLiveData<Int> = MutableLiveData()
+
+    val scoreTeam1LiveData: LiveData<Int>
+        get() = _scoreTeam1LiveData
+
+    val scoreTeam2LiveData: LiveData<Int>
+        get() = _scoreTeam2LiveData
+
     var team1: MutableLiveData<String> = MutableLiveData()
     var team2: MutableLiveData<String> = MutableLiveData()
 
 
     init {
-        scoreTeam1.value = 0
-        scoreTeam2.value = 0
+        _scoreTeam1LiveData.value = 0
+        _scoreTeam2LiveData.value = 0
         team1.value = ""
         team2.value = ""
     }
@@ -27,22 +35,22 @@ class ScoreViewModel : ViewModel() {
 
 
     fun addToScore1(number: Int) {
-        scoreTeam1.value = scoreTeam1.value?.plus(number)
+        _scoreTeam1LiveData.value = _scoreTeam1LiveData.value?.plus(number)
     }
 
     fun substractToScre1(number: Int) {
-        if (scoreTeam1.value!! > 0) {
-            scoreTeam1.value = scoreTeam1.value?.minus(number)
+        if (_scoreTeam1LiveData.value!! > 0) {
+            _scoreTeam1LiveData.value = _scoreTeam1LiveData.value?.minus(number)
         }
     }
 
     fun addToScore2(number: Int) {
-        scoreTeam2.value = scoreTeam2.value?.plus(number)
+        _scoreTeam2LiveData.value = _scoreTeam2LiveData.value?.plus(number)
     }
 
     fun substractToScre2(number: Int) {
-        if (scoreTeam2.value!! > 0) {
-            scoreTeam2.value = scoreTeam2.value?.minus(number)
+        if (_scoreTeam2LiveData.value!! > 0) {
+            _scoreTeam2LiveData.value = _scoreTeam2LiveData.value?.minus(number)
         }
     }
 }

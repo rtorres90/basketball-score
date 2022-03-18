@@ -3,12 +3,9 @@ package com.rtorres.basketballscore
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.widget.Toast
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.rtorres.basketballscore.databinding.ActivityScoreBinding
-import kotlinx.android.synthetic.main.activity_result.*
 
 class ScoreActivity : AppCompatActivity() {
     private lateinit var binding: ActivityScoreBinding
@@ -26,13 +23,14 @@ class ScoreActivity : AppCompatActivity() {
 
         viewModel = ViewModelProvider(this).get(ScoreViewModel::class.java)
 
-        viewModel.scoreTeam1.observe(this, Observer { scoreTeamValue1 ->
+        viewModel.scoreTeam1LiveData.observe(this, Observer { scoreTeamValue1 ->
             binding.scoreTeam1.text = scoreTeamValue1.toString()
         })
 
-        viewModel.scoreTeam2.observe(this, Observer { scoreTeamValue2 ->
+        viewModel.scoreTeam2LiveData.observe(this, Observer { scoreTeamValue2 ->
             binding.scoreTeam2.text = scoreTeamValue2.toString()
         })
+
 
         val bundle = intent.extras!!
         viewModel.renameTeam1(bundle.getString(FIRST_TEAM)!!)
@@ -63,16 +61,16 @@ class ScoreActivity : AppCompatActivity() {
         }
 
         binding.resetButton.setOnClickListener {
-            viewModel.substractToScre1(viewModel.scoreTeam1.value!!)
-            viewModel.substractToScre2(viewModel.scoreTeam2.value!!)
+            viewModel.substractToScre1(viewModel.scoreTeam1LiveData.value!!)
+            viewModel.substractToScre2(viewModel.scoreTeam2LiveData.value!!)
         }
 
         binding.finishButton.setOnClickListener {
             openResultActivity(
                 viewModel.team1.value!!,
                 viewModel.team2.value!!,
-                viewModel.scoreTeam1.value!!,
-                viewModel.scoreTeam2.value!!
+                viewModel.scoreTeam1LiveData.value!!,
+                viewModel.scoreTeam2LiveData.value!!
             )
         }
     }
